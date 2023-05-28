@@ -1,14 +1,12 @@
 import CartItem from "components/CartItem";
-import { useState, useEffect } from "react";
-import { Thumb } from "./pages.styled";
+import { Item, List } from "./pages.styled";
 
-export default function ShoppingCart({ total, addedProducts }) {
-  //   const [products, setProducts] = useState([]);
-
-  //   useEffect(() => {
-  //     setQuantity((state) => state + 1);
-  //   }, [quantity]);
-
+export default function ShoppingCart({
+  total,
+  addedProducts,
+  increaseProduct,
+  decreaseProduct,
+}) {
   const handleSubmit = () => {};
 
   return (
@@ -23,22 +21,25 @@ export default function ShoppingCart({ total, addedProducts }) {
 
       <div>
         {addedProducts && (
-          <ul>
+          <List>
             {addedProducts &&
               addedProducts.map((addedProduct) => (
-                <li key={addedProduct.id}>
+                <Item key={addedProduct.id}>
                   <CartItem
+                    id={addedProduct.id}
                     image={addedProduct.image}
                     product={addedProduct.product}
                     price={addedProduct.price}
                     quantity={addedProduct.quantity}
+                    increaseProduct={increaseProduct}
+                    decreaseProduct={decreaseProduct}
                   />
-                </li>
+                </Item>
               ))}
-          </ul>
+          </List>
         )}
 
-        <p>Total price: {total} ₴</p>
+        <p>Total order: {total} ₴</p>
       </div>
     </div>
   );

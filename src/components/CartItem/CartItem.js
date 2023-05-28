@@ -1,15 +1,36 @@
-import { Thumb } from "pages/pages.styled";
-import { useState } from "react";
+import { Thumb } from "./CartItem.styled";
 
-export default function CartItem({ image, product, price, quantity }) {
-  const [newQuantity, setNewQuantity] = useState(quantity);
+export default function CartItem({
+  id,
+  image,
+  product,
+  price,
+  quantity,
+  increaseProduct,
+  decreaseProduct,
+}) {
+  const totalByItem = quantity * price;
 
   const increaseQuantity = () => {
-    setNewQuantity((state) => state + 1);
+    const updatedProduct = {
+      id,
+      image,
+      product,
+      price,
+      quantity: 1,
+    };
+    increaseProduct(updatedProduct);
   };
 
   const decreaseQuantity = () => {
-    setNewQuantity((state) => state - 1);
+    const updatedProduct = {
+      id,
+      image,
+      product,
+      price,
+      quantity: 1,
+    };
+    decreaseProduct(updatedProduct);
   };
 
   return (
@@ -21,12 +42,13 @@ export default function CartItem({ image, product, price, quantity }) {
         <button type="button" onClick={decreaseQuantity}>
           -
         </button>
-        <p>{newQuantity}</p>
+        <p>{quantity} pcs</p>
 
         <button type="button" onClick={increaseQuantity}>
           +
         </button>
       </Thumb>
+      <p>Total: {totalByItem} ₴</p>
     </>
   );
 }

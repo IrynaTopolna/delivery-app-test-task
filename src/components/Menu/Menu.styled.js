@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const List = styled.ul`
-  margin: 0 20px 30px 30px;
+  margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: space-evenly;
+  justify-content: center;
 `;
 
 export const Item = styled.li`

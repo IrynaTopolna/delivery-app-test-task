@@ -13,8 +13,8 @@ export default function App() {
   const [addedProducts, setAddedProducts] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
 
-  const handleBtnClick = (price, newProduct) => {
-    setTotal((state) => state + Number(price));
+  const increaseProduct = (newProduct) => {
+    setTotal((state) => state + Number(newProduct.price));
 
     const haveNewProduct = addedProducts.find(
       (addedProduct) => newProduct.id === addedProduct.id
@@ -22,26 +22,42 @@ export default function App() {
 
     if (haveNewProduct) {
       console.log(haveNewProduct);
-      const haveNewProductIndex = addedProducts.findIndex(
-        (addedProduct) => newProduct.id === addedProduct.id
+      addedProducts.forEach((product) =>
+        product.id === newProduct.id
+          ? (product.quantity += 1)
+          : (product.quantity = product.quantity)
       );
-      console.log(haveNewProductIndex);
-      const newList = addedProducts;
-      const del = newList.splice(haveNewProductIndex, 1);
-      console.log(del);
-
-      haveNewProduct.quantity += 1;
-
-      newList.push(haveNewProduct);
-
-      console.log(newList);
-      setAddedProducts(newList);
     }
     if (!haveNewProduct) {
       setAddedProducts((state) => [...state, newProduct]);
     }
-    // console.log(newProduct);
-    // console.log(addedProducts);
+    console.log(addedProducts);
+  };
+
+  const decreaseProduct = (product) => {
+    setTotal((state) => state - Number(product.price));
+
+    const haveProduct = addedProducts.find(
+      (addedProduct) => product.id === addedProduct.id
+    );
+    console.log(haveProduct);
+
+    if (haveProduct.quantity === 1) {
+      const productIndex = addedProducts.findIndex(
+        (addedProduct) => product.id === addedProduct.id
+      );
+
+      const newList = addedProducts;
+      newList.splice(productIndex, 1);
+      setAddedProducts(newList);
+      return;
+    }
+
+    addedProducts.forEach((addedProduct) =>
+      addedProduct.id === product.id
+        ? (addedProduct.quantity -= 1)
+        : (addedProduct.quantity = addedProduct.quantity)
+    );
   };
 
   const getList = (list) => {
@@ -58,18 +74,21 @@ export default function App() {
                 key={restaurant.id}
                 path={restaurant.name}
                 element={
-                  <Menu
-                    handleBtnClick={handleBtnClick}
-                    total={total}
-                    id={restaurant.id}
-                  />
+                  <Menu increaseProduct={increaseProduct} id={restaurant.id} />
                 }
               />
             ))}
         </Route>
         <Route
           path="cart"
-          element={<Cart total={total} addedProducts={addedProducts} />}
+          element={
+            <Cart
+              total={total}
+              addedProducts={addedProducts}
+              increaseProduct={increaseProduct}
+              decreaseProduct={decreaseProduct}
+            />
+          }
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

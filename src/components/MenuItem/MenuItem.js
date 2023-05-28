@@ -6,8 +6,7 @@ export default function MenuItem({
   image,
   product,
   price,
-  handleBtnClick,
-  total,
+  increaseProduct,
 }) {
   return (
     <>
@@ -21,17 +20,16 @@ export default function MenuItem({
         <Button
           type="button"
           onClick={() =>
-            handleBtnClick(price, { id, image, product, price, quantity: 1 })
+            increaseProduct({ id, image, product, price, quantity: 1 })
           }
         >
           Add to cart
         </Button>
-        <p>{total}</p>
       </div>
     </>
   );
 }
 
 MenuItem.propTypes = {
-  handleBtnClick: PropTypes.func.isRequired,
+  increaseProduct: PropTypes.func.isRequired,
 };

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-export const RestList = styled.ul`
+export const List = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -17,13 +17,7 @@ export const Text = styled.p`
 `;
 
 export const RestItem = styled.li`
-  //   border: 1px solid #c3d1c0;
-  //   box-shadow: 3px 3px 8px -1px rgba(0, 0, 0, 0.5);
-  //   background-color: rgba(188, 237, 66, 0.5);
-  //   text-align: center;
   margin-bottom: 30px;
-  //   font-size: 18px;
-  //   padding: 10px 20px;
 `;
 
 export const StyledLink = styled(NavLink)`
@@ -41,7 +35,15 @@ export const StyledLink = styled(NavLink)`
   }
 `;
 
-export const Thumb = styled.div`
+export const Item = styled.li`
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #c3d1c0;
+  box-shadow: 3px 3px 8px -1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(188, 237, 66, 0.5);
+  width: 200px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 18px;
 `;

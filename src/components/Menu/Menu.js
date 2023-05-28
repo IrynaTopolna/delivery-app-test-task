@@ -1,11 +1,11 @@
 import { RotatingLines } from "react-loader-spinner";
 import { useState, useEffect, Suspense } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Item, List } from "./Menu.styled";
 import MenuItem from "components/MenuItem";
 import { getMenu } from "services/products-api";
 
-export default function Menu({ handleBtnClick, total, id }) {
+export default function Menu({ increaseProduct, id }) {
   const [menu, setMenu] = useState([]);
   const [status, setStatus] = useState("idle");
 
@@ -27,7 +27,6 @@ export default function Menu({ handleBtnClick, total, id }) {
         }
         setMenu(menu.products);
         setStatus("resolved");
-        console.log(menu.products);
       })
       .catch((error) => {
         setStatus("rejected");
@@ -57,8 +56,7 @@ export default function Menu({ handleBtnClick, total, id }) {
                 product={product.product}
                 image={product.image}
                 price={product.price}
-                handleBtnClick={handleBtnClick}
-                total={total}
+                increaseProduct={increaseProduct}
               />
             </Item>
           ))}

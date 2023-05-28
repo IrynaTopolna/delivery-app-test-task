@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { getRestaurants } from "services/products-api";
-import { RestItem, RestList, StyledLink, Text } from "./pages.styled";
+import { RestItem, List, StyledLink, Text } from "./pages.styled";
 import { RotatingLines } from "react-loader-spinner";
 
 export default function Shop({ getList }) {
@@ -51,7 +51,7 @@ export default function Shop({ getList }) {
         <>
           <Text>Welcome to Delivery App. Choose your favorite restaurant.</Text>
 
-          <RestList>
+          <List>
             {restaurants &&
               restaurants.map((restaurant) => (
                 <RestItem key={restaurant.id}>
@@ -60,7 +60,7 @@ export default function Shop({ getList }) {
                   </StyledLink>
                 </RestItem>
               ))}
-          </RestList>
+          </List>
           <Outlet />
         </>
       )}
