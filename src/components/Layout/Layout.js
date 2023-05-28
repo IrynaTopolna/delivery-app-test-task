@@ -1,4 +1,6 @@
 import { Suspense } from "react";
+import { RotatingLines } from "react-loader-spinner";
+import { Outlet } from "react-router-dom";
 import { LayoutContainer, List, StyledNavLink } from "./Layout.styled";
 
 const Layout = ({ children }) => {
@@ -16,7 +18,20 @@ const Layout = ({ children }) => {
       </header>
       <LayoutContainer>
         <main>
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          <Suspense
+            fallback={
+              <RotatingLines
+                strokeColor="#581845"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="150"
+                visible={true}
+              />
+            }
+          >
+            {children}
+            <Outlet />
+          </Suspense>
         </main>
       </LayoutContainer>
     </>

@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="delivery-app-test-task">
+    <BrowserRouter basename="/delivery-app-test-task">
       <App />
     </BrowserRouter>
   </React.StrictMode>

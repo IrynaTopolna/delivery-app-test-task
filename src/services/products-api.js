@@ -9,3 +9,14 @@ export const getMenu = (id) => {
   const response = fetch(`${BASE_URL}/products/${id}`);
   return response;
 };
+
+export const setData = (data) => {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  const response = fetch(`${BASE_URL}/users`, requestOptions);
+  return response;
+};

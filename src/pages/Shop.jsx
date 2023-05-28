@@ -55,12 +55,11 @@ export default function Shop({ getList }) {
             {restaurants &&
               restaurants.map((restaurant) => (
                 <RestItem key={restaurant.id}>
-                  <StyledLink to={restaurant.name}>
-                    {restaurant.name}
-                  </StyledLink>
+                  <StyledLink to={restaurant.id}>{restaurant.name}</StyledLink>
                 </RestItem>
               ))}
           </List>
+
           <Outlet />
         </>
       )}

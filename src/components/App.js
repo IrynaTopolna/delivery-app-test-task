@@ -31,7 +31,7 @@ export default function App() {
     if (!haveNewProduct) {
       setAddedProducts((state) => [...state, newProduct]);
     }
-    console.log(addedProducts);
+    // console.log(addedProducts);
   };
 
   const decreaseProduct = (product) => {
@@ -72,7 +72,7 @@ export default function App() {
             restaurants.map((restaurant) => (
               <Route
                 key={restaurant.id}
-                path={restaurant.name}
+                path={restaurant.id}
                 element={
                   <Menu increaseProduct={increaseProduct} id={restaurant.id} />
                 }
