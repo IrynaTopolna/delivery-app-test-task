@@ -19,6 +19,5 @@ export const Item = styled.li`
   background-color: rgba(188, 237, 66, 0.5);
   width: 200px;
   text-align: center;
-  margin-bottom: 10px;
   font-size: 18px;
 `;

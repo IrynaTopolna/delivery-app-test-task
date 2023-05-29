@@ -6,18 +6,15 @@ export const List = styled.ul`
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+  align-items: baseline;
   margin: 0;
-  padding: 20px;
+  margin-bottom: 20px;
 `;
 
 export const Text = styled.p`
   text-align: center;
   font-size: 18px;
   margin: 0 0 30px;
-`;
-
-export const RestItem = styled.li`
-  margin-bottom: 30px;
 `;
 
 export const StyledLink = styled(NavLink)`
@@ -27,11 +24,11 @@ export const StyledLink = styled(NavLink)`
   text-align: center;
   font-size: 18px;
   padding: 6px 20px;
+  border-radius: 4px;
   &.active {
     padding: 8px 16px;
     color: white;
     background-color: #581845;
-    border-radius: 4px;
   }
 `;
 
@@ -44,7 +41,6 @@ export const Item = styled.li`
   background-color: rgba(188, 237, 66, 0.5);
   width: 190px;
   text-align: center;
-  margin-bottom: 10px;
   font-size: 18px;
 `;
 
@@ -78,7 +74,7 @@ export const DivForm = styled.div`
   flex-direction: column;
   border: 1px solid #581845;
   box-shadow: 0px 2px 11px 2px rgba(88, 24, 69, 1);
-  height: 60vh;
+  height: 320px;
   padding: 20px;
   width: 240px;
 `;
@@ -90,6 +86,7 @@ export const DivCards = styled.div`
   border: 1px solid #581845;
   box-shadow: 0px 2px 11px 2px rgba(88, 24, 69, 1);
   min-width: 880px;
+  padding-top: 20px;
 `;
 
 export const DivTotal = styled.div`
@@ -120,4 +117,16 @@ export const Button = styled.button`
   &:hover {
     transform: scale(1.1);
   }
+`;
+
+export const ImmobiledLink = styled.p`
+  border: 1px solid #c3d1c0;
+  box-shadow: 3px 3px 8px -1px rgba(0, 0, 0, 0.5);
+  background-color: gray;
+  text-align: center;
+  font-size: 18px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin: 0;
+  cursor: no-drop;
 `;

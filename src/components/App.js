@@ -23,7 +23,6 @@ export default function App() {
     );
 
     if (haveNewProduct) {
-      console.log(haveNewProduct);
       addedProducts.forEach((product) =>
         product.id === newProduct.id
           ? (product.quantity += 1)
@@ -34,8 +33,7 @@ export default function App() {
       setAddedProducts((state) => [...state, newProduct]);
     }
 
-    toast.success("Product is added");
-    // console.log(addedProducts);
+    toast.success("Product has been added to the cart");
   };
 
   const decreaseProduct = (product) => {
@@ -44,7 +42,6 @@ export default function App() {
     const haveProduct = addedProducts.find(
       (addedProduct) => product.id === addedProduct.id
     );
-    console.log(haveProduct);
 
     if (haveProduct.quantity === 1) {
       const productIndex = addedProducts.findIndex(
@@ -63,11 +60,16 @@ export default function App() {
         : (addedProduct.quantity = addedProduct.quantity)
     );
 
-    toast.success("Product is removed");
+    toast.success("Product has been removed from the cart");
   };
 
   const getList = (list) => {
     setRestaurants(list);
+  };
+
+  const removeAddedProducts = () => {
+    setAddedProducts([]);
+    setTotal(0);
   };
 
   return (
@@ -96,6 +98,7 @@ export default function App() {
               addedProducts={addedProducts}
               increaseProduct={increaseProduct}
               decreaseProduct={decreaseProduct}
+              removeAddedProducts={removeAddedProducts}
             />
           }
         />

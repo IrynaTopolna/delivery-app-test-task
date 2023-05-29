@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { getRestaurants } from "services/products-api";
-import { RestItem, List, StyledLink, Text } from "./pages.styled";
+import { List, StyledLink, Text, ImmobiledLink } from "./pages.styled";
 import { RotatingLines } from "react-loader-spinner";
 
 export default function Shop({ getList }) {
   const [restaurants, setRestaurants] = useState([]);
   const [status, setStatus] = useState("idle");
+  const [active, setActive] = useState([]);
 
   useEffect(() => {
     setStatus("pending");
@@ -27,11 +28,19 @@ export default function Shop({ getList }) {
         setRestaurants(restaurants);
         setStatus("resolved");
         getList(restaurants);
+
+        const arr = [];
+        restaurants.map((restaurant) => arr.push(restaurant.id));
+        setActive(arr);
       })
       .catch((error) => {
         setStatus("rejected");
       });
   }, []);
+
+  const onClick = (id) => {
+    setActive(id);
+  };
 
   return (
     <div>
@@ -49,16 +58,25 @@ export default function Shop({ getList }) {
       )}
       {status === "resolved" && (
         <>
-          <Text>Welcome to Delivery App. Choose your favorite restaurant.</Text>
+          <Text>
+            Welcome to Food Delivery App. Choose your favorite restaurant.
+          </Text>
 
           <List>
             {restaurants &&
               restaurants.map((restaurant) => (
-                <RestItem key={restaurant.id}>
-                  <StyledLink to={`/${restaurant.id}`}>
-                    {restaurant.name}
-                  </StyledLink>
-                </RestItem>
+                <li key={restaurant.id}>
+                  {active.includes(restaurant.id) ? (
+                    <StyledLink
+                      to={`/${restaurant.id}`}
+                      onClick={() => onClick(restaurant.id)}
+                    >
+                      {restaurant.name}
+                    </StyledLink>
+                  ) : (
+                    <ImmobiledLink>{restaurant.name}</ImmobiledLink>
+                  )}
+                </li>
               ))}
           </List>
 

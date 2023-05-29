@@ -19,9 +19,9 @@ export default function MenuItem({
         <p>{price} ₴</p>
         <Button
           type="button"
-          onClick={() =>
-            increaseProduct({ id, image, product, price, quantity: 1 })
-          }
+          onClick={() => {
+            increaseProduct({ id, image, product, price, quantity: 1 });
+          }}
         >
           Add to cart
         </Button>

@@ -23,11 +23,14 @@ const initUser = {
   address: "",
 };
 
+const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
+
 export default function ShoppingCart({
   total,
   addedProducts,
   increaseProduct,
   decreaseProduct,
+  removeAddedProducts,
 }) {
   const [user, setUser] = useState(initUser);
 
@@ -49,13 +52,11 @@ export default function ShoppingCart({
 
     if (checkedData) {
       toast.error("Please, enter all delivery information");
-
       return;
     }
 
     if (addedProducts.length === 0) {
       toast.error("Cart is empty :(");
-
       return;
     }
 
@@ -64,8 +65,23 @@ export default function ShoppingCart({
       order: addedProducts,
       total,
     };
-    console.log(data);
-    setData(data);
+
+    setData(data)
+      .then((response) => {
+        if (response.ok) {
+          toast.success("Your order has been sent");
+          savedOrders.push(data);
+          localStorage.setItem("orders", JSON.stringify(savedOrders));
+          setUser(initUser);
+          removeAddedProducts();
+          return;
+        }
+
+        return Promise.reject("Error");
+      })
+      .catch((error) => {
+        toast.error(`Something went wrong. Please try again. ${error}`);
+      });
   };
 
   return (
@@ -79,6 +95,7 @@ export default function ShoppingCart({
               type="text"
               name="name"
               placeholder="Name"
+              value={user.name}
               onChange={handleChange}
             />
 
@@ -86,18 +103,21 @@ export default function ShoppingCart({
               type="email"
               name="email"
               placeholder="Email"
+              value={user.email}
               onChange={handleChange}
             />
             <Input
               type="tel"
               name="phone"
               placeholder="Phone"
+              value={user.phone}
               onChange={handleChange}
             />
             <Input
               type="text"
               name="address"
               placeholder="Address"
+              value={user.address}
               onChange={handleChange}
             />
           </Form>
@@ -134,17 +154,3 @@ export default function ShoppingCart({
     </>
   );
 }
-
-// {
-//   "user": {
-//    "name": "Mari",
-//    "email": "mari@gmail.com",
-//    "phone": "0673333333",
-//    "address": "Buga str, 15"
-//     }
-//    {
-//       "name": "Lori",
-//       "email": "lori@gmail.com",
-//       "phone": "0665555555",
-//       "address": "Free str, 7"
-//     }
