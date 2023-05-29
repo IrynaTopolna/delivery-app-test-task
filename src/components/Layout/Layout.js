@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { Outlet } from "react-router-dom";
-import { LayoutContainer, List, StyledNavLink } from "./Layout.styled";
+import { Header, LayoutContainer, List, StyledNavLink } from "./Layout.styled";
 
 const Layout = ({ children }) => {
   return (
     <>
-      <header>
+      <Header>
         <List>
           <li>
             <StyledNavLink to="/">Shop</StyledNavLink>
@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
             <StyledNavLink to="/cart">Shopping Cart</StyledNavLink>
           </li>
         </List>
-      </header>
+      </Header>
       <LayoutContainer>
         <main>
           <Suspense

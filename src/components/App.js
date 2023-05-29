@@ -1,5 +1,7 @@
 import { lazy, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import Layout from "./Layout/Layout";
 import { GlobalStyles } from "./GlobalStyles";
 import { NotFound } from "pages/NotFound";
@@ -31,6 +33,8 @@ export default function App() {
     if (!haveNewProduct) {
       setAddedProducts((state) => [...state, newProduct]);
     }
+
+    toast.success("Product is added");
     // console.log(addedProducts);
   };
 
@@ -58,6 +62,8 @@ export default function App() {
         ? (addedProduct.quantity -= 1)
         : (addedProduct.quantity = addedProduct.quantity)
     );
+
+    toast.success("Product is removed");
   };
 
   const getList = (list) => {
@@ -66,21 +72,24 @@ export default function App() {
 
   return (
     <Layout>
+      <Toaster
+        toastOptions={{
+          duration: 2000,
+        }}
+      />
       <Routes>
         <Route path="/" element={<Shop getList={getList} />}>
           {restaurants &&
             restaurants.map((restaurant) => (
               <Route
                 key={restaurant.id}
-                path={restaurant.id}
-                element={
-                  <Menu increaseProduct={increaseProduct} id={restaurant.id} />
-                }
+                path="/:id"
+                element={<Menu increaseProduct={increaseProduct} />}
               />
             ))}
         </Route>
         <Route
-          path="cart"
+          path="/cart"
           element={
             <Cart
               total={total}

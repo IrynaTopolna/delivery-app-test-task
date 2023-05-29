@@ -1,4 +1,4 @@
-import { Thumb } from "./CartItem.styled";
+import { Img, Text, Thumb } from "./CartItem.styled";
 
 export default function CartItem({
   id,
@@ -35,20 +35,20 @@ export default function CartItem({
 
   return (
     <>
-      <img src={image} alt={product} width="200" height="132" />
-      <p>{product}</p>
-      <p>{price} ₴</p>
+      <Img src={image} alt={product} width="200" height="132" />
+      <Text>{product}</Text>
+      <Text>{price} ₴</Text>
       <Thumb>
         <button type="button" onClick={decreaseQuantity}>
           -
         </button>
-        <p>{quantity} pcs</p>
+        <Text>{quantity} pcs</Text>
 
         <button type="button" onClick={increaseQuantity}>
           +
         </button>
       </Thumb>
-      <p>Total: {totalByItem} ₴</p>
+      <Text>Total: {totalByItem} ₴</Text>
     </>
   );
 }

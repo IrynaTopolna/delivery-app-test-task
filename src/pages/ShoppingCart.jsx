@@ -1,7 +1,20 @@
+import toast from "react-hot-toast";
 import CartItem from "components/CartItem";
 import { useState } from "react";
 import { setData } from "services/products-api";
-import { Item, List } from "./pages.styled";
+import {
+  Button,
+  Cover,
+  DivCards,
+  DivForm,
+  DivTotal,
+  Form,
+  Input,
+  Item,
+  List,
+  Text2,
+  Total,
+} from "./pages.styled";
 
 const initUser = {
   name: "",
@@ -20,11 +33,31 @@ export default function ShoppingCart({
 
   const handleChange = (evt) => {
     const data = evt.currentTarget;
-    setUser({ ...user, [data.name]: data.value });
+    const inputValue = data.value.toLowerCase().trim();
+
+    setUser({ ...user, [data.name]: inputValue });
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
+    const checkedData =
+      user.name === "" ||
+      user.email === "" ||
+      user.phone === "" ||
+      user.address === "";
+
+    if (checkedData) {
+      toast.error("Please, enter all delivery information");
+
+      return;
+    }
+
+    if (addedProducts.length === 0) {
+      toast.error("Cart is empty :(");
+
+      return;
+    }
 
     const data = {
       user,
@@ -36,61 +69,69 @@ export default function ShoppingCart({
   };
 
   return (
-    <div>
-      <p>Add your delivery information:</p>
-      <form>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-        />
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Phone"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="address"
-          placeholder="Address"
-          onChange={handleChange}
-        />
-      </form>
+    <>
+      <Cover>
+        <DivForm>
+          <Text2>Add your delivery information:</Text2>
 
-      <div>
-        {addedProducts && (
-          <List>
-            {addedProducts &&
-              addedProducts.map((addedProduct) => (
-                <Item key={addedProduct.id}>
-                  <CartItem
-                    id={addedProduct.id}
-                    image={addedProduct.image}
-                    product={addedProduct.product}
-                    price={addedProduct.price}
-                    quantity={addedProduct.quantity}
-                    increaseProduct={increaseProduct}
-                    decreaseProduct={decreaseProduct}
-                  />
-                </Item>
-              ))}
-          </List>
-        )}
+          <Form>
+            <Input
+              type="text"
+              name="name"
+              placeholder="Name"
+              onChange={handleChange}
+            />
 
-        <p>Total order: {total} ₴</p>
-        <button type="submit" onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
-    </div>
+            <Input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+            />
+            <Input
+              type="tel"
+              name="phone"
+              placeholder="Phone"
+              onChange={handleChange}
+            />
+            <Input
+              type="text"
+              name="address"
+              placeholder="Address"
+              onChange={handleChange}
+            />
+          </Form>
+        </DivForm>
+
+        <DivCards>
+          {addedProducts && (
+            <List>
+              {addedProducts &&
+                addedProducts.map((addedProduct) => (
+                  <Item key={addedProduct.id}>
+                    <CartItem
+                      id={addedProduct.id}
+                      image={addedProduct.image}
+                      product={addedProduct.product}
+                      price={addedProduct.price}
+                      quantity={addedProduct.quantity}
+                      increaseProduct={increaseProduct}
+                      decreaseProduct={decreaseProduct}
+                    />
+                  </Item>
+                ))}
+            </List>
+          )}
+
+          <DivTotal>
+            <Total>Total order: {total} ₴</Total>
+            <Button type="submit" onClick={handleSubmit}>
+              Submit
+            </Button>
+          </DivTotal>
+        </DivCards>
+      </Cover>
+    </>
   );
 }
 

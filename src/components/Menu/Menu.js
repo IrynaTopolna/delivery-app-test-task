@@ -1,13 +1,14 @@
 import { RotatingLines } from "react-loader-spinner";
 import { useState, useEffect, Suspense } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { Item, List } from "./Menu.styled";
 import MenuItem from "components/MenuItem";
 import { getMenu } from "services/products-api";
 
-export default function Menu({ increaseProduct, id }) {
+export default function Menu({ increaseProduct }) {
   const [menu, setMenu] = useState([]);
   const [status, setStatus] = useState("idle");
+  const { id } = useParams();
 
   useEffect(() => {
     setStatus("pending");
