@@ -4,7 +4,7 @@
 
 - This project was created using Create React App, React, react-dom, react-router-dom, react-hot-toast, react-loader-spinner, styled-components and modern-normalize;
 
-- Personal backend was created with [mockapi.io](mockapi.io);
+- Personal database was created with [mockapi.io](mockapi.io);
 
 - The App is implemented according to the Middle level of the complexity and, according to requirements consist of two pages:
 
